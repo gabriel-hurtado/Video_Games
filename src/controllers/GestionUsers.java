@@ -52,7 +52,12 @@ public class GestionUsers extends HttpServlet {
 			}
 
 			if (action.equals("supprimer")) {
-				UtilisateursDao.delete(id);
+				try {
+					UtilisateursDao.delete(id);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} else if (action.equals("modifier")) {
 				request.setAttribute("uModif", UtilisateursDao.find(id));
 			} else if (action.equals("sort")) {
@@ -102,9 +107,19 @@ public class GestionUsers extends HttpServlet {
 			String idStr = request.getParameter("id");
 			if (idStr != null && !idStr.trim().equals("")) {
 				u.setId(Integer.parseInt(idStr));
-				UtilisateursDao.update(u);
+				try {
+					UtilisateursDao.update(u);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} else {
-				UtilisateursDao.insert(u);
+				try {
+					UtilisateursDao.insert(u);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 		}

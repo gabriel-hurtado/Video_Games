@@ -12,7 +12,7 @@ public final class ConnexionBDD {
 	private static volatile ConnexionBDD instance;
 	private Connection cnx; 
 	
-	private ConnexionBDD() {
+	private ConnexionBDD() throws ClassNotFoundException {
 		try {
 			
 			Properties p = new Properties();
@@ -25,17 +25,17 @@ public final class ConnexionBDD {
 			//Class.forName(p.getProperty("driver"));
 			//cnx = DriverManager.getConnection(p.getProperty("url"),
 				//	p.getProperty("user"), p.getProperty("pwd"));
-			//Class.forName("com.mysql.jdbc.Driver");  
-			//cnx=DriverManager.getConnection("jdbc:mysql://localhost:3306/sr03","root","root");
+			Class.forName("com.mysql.jdbc.Driver");  
+			cnx=DriverManager.getConnection("jdbc:mysql://localhost:3306/sr03","root","root");
 			
-			String url = "jdbc:mysql://localhost:3306/sr03";
-			String username = "root";
-			String password = "root";
+			//String url = "jdbc:mysql://localhost:3306/sr03";
+			//String username = "root";
+			//String password = "root";
 
-			System.out.println("Connecting database...");
+			//System.out.println("Connecting database...");
 
-			cnx = (Connection) DriverManager.getConnection(url, username, password);
-			System.out.println("Database connected!");
+			//cnx = (Connection) DriverManager.getConnection(url, username, password);
+			//System.out.println("Database connected!");
 			
 
 			
@@ -47,7 +47,7 @@ public final class ConnexionBDD {
 		}
 	} 
 	
-	public static synchronized ConnexionBDD getInstance() {
+	public static synchronized ConnexionBDD getInstance() throws ClassNotFoundException {
 		if(instance==null)
 			instance = new ConnexionBDD();
 		
