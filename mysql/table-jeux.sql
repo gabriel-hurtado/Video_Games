@@ -1,7 +1,8 @@
 CREATE TABLE jeux (
-	CHAR(15) id NOT NULL, #pkey uuid
-	VARCHAR(255) title,
-	FLOAT(7,4) price, # up to 4 decimal and total of 7 digits.
-	CHAR(15) buyer, #fkey for junction with client table
-	console_type ENUM('PC', 'MAC', 'xbox', 'xbox360', 'ps3', 'ps4'),
+	id CHAR(15) NOT NULL, #pkey uuid
+	title VARCHAR(255),
+	price FLOAT(7,4), # up to 4 decimal and total of 7 digits
+	buyer CHAR(15) references client(username), #fkey for junction with client table
+	console_type ENUM('PC', 'MAC', 'XBOX', 'XBOX360', 'PS3', 'PS4'),
+	PRIMARY KEY(id)
 );

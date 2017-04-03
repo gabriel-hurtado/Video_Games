@@ -1,4 +1,5 @@
 CREATE TABLE client (
-	CHAR(10) username NOT NULL, #required for identification - pkey
-	CHAR(10) password NOT NULL, #required for identification
-)
+	username CHAR(10) NOT NULL, #required for identification - pkey
+	password  CHAR(10) NOT NULL, #required for identification
+    primary key (username)
+);
