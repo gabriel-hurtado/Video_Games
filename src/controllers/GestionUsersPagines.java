@@ -73,9 +73,19 @@ public class GestionUsersPagines extends HttpServlet {
 		String idStr = request.getParameter("id");
 		if(idStr!=null && !idStr.trim().equals("")){
 			u.setId(Integer.parseInt(idStr));
-			UtilisateursDao.update(u);
+			try {
+				UtilisateursDao.update(u);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else{
-			UtilisateursDao.insert(u);
+			try {
+				UtilisateursDao.insert(u);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		request.setAttribute("listeU", UtilisateursDao.findAll());

@@ -12,7 +12,7 @@ import beans.Utilisateur;
 
 public class UtilisateursDao {
 
-	public static int insert(Utilisateur u) {
+	public static int insert(Utilisateur u) throws ClassNotFoundException {
 		int res = 0;
 				
 		Connection cnx=null;
@@ -40,7 +40,7 @@ public class UtilisateursDao {
 		return res;
 	}
 	
-	public static int update(Utilisateur u) {
+	public static int update(Utilisateur u) throws ClassNotFoundException {
 		int res = 0;
 		
 		Connection cnx=null;
@@ -69,7 +69,7 @@ public class UtilisateursDao {
 		return res;
 	}
 	
-	public static int delete(int id) {
+	public static int delete(int id) throws ClassNotFoundException {
 		int res = 0;
 		Connection cnx=null;
 		try {
@@ -106,7 +106,12 @@ public class UtilisateursDao {
 		List<Utilisateur> lu = new ArrayList<Utilisateur>();
 		Connection cnx=null;
 		try {
-			cnx = ConnexionBDD.getInstance().getCnx();
+			try {
+				cnx = ConnexionBDD.getInstance().getCnx();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			// ou Class.forName(com.mysql.jdbc.Driver.class.getName());
 
 			
@@ -126,7 +131,12 @@ public class UtilisateursDao {
 			}
 			
 			res.close();
-			ConnexionBDD.getInstance().closeCnx();			
+			try {
+				ConnexionBDD.getInstance().closeCnx();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -148,7 +158,12 @@ public class UtilisateursDao {
 		
 		Connection cnx=null;
 		try {
-			cnx = ConnexionBDD.getInstance().getCnx();
+			try {
+				cnx = ConnexionBDD.getInstance().getCnx();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// ou Class.forName(com.mysql.jdbc.Driver.class.getName());
 
 		
@@ -171,7 +186,12 @@ public class UtilisateursDao {
 			}
 			
 			res.close();
-			ConnexionBDD.getInstance().closeCnx();			
+			try {
+				ConnexionBDD.getInstance().closeCnx();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -192,7 +212,12 @@ public class UtilisateursDao {
 		
 		Connection cnx=null;
 		try {
-			cnx = ConnexionBDD.getInstance().getCnx();
+			try {
+				cnx = ConnexionBDD.getInstance().getCnx();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// ou Class.forName(com.mysql.jdbc.Driver.class.getName());
 
 		
@@ -215,7 +240,12 @@ public class UtilisateursDao {
 			}
 			
 			res.close();
-			ConnexionBDD.getInstance().closeCnx();			
+			try {
+				ConnexionBDD.getInstance().closeCnx();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -230,7 +260,12 @@ public class UtilisateursDao {
 		int counter = 0;
 		Connection cnx=null;
 		try {
-			cnx = ConnexionBDD.getInstance().getCnx();
+			try {
+				cnx = ConnexionBDD.getInstance().getCnx();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 			String sql = "SELECT COUNT(*) FROM utilisateurs";
 			PreparedStatement ps = cnx.prepareStatement(sql);

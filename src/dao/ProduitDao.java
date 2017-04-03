@@ -13,7 +13,7 @@ import beans.Utilisateur;
 
 public class ProduitDao {
 
-	public static List<Produit> findAll() {
+	public static List<Produit> findAll() throws ClassNotFoundException {
 		/*
 		 * List<beans.Utilisateur> lu = new ArrayList<Utilisateur>(); lu.add(new
 		 * Utilisateur(1,"nom1","tel1","username1","pwd1")); lu.add(new
@@ -51,7 +51,7 @@ public class ProduitDao {
 		return lu;
 	}
 	
-	public static Produit find(int id) {
+	public static Produit find(int id) throws ClassNotFoundException {
 		/*
 		 * List<beans.Utilisateur> lu = new ArrayList<Utilisateur>(); lu.add(new
 		 * Utilisateur(1,"nom1","tel1","username1","pwd1")); lu.add(new

@@ -41,8 +41,14 @@ public class GestionAchats extends HttpServlet {
 						
 			if(action.equals("showForm")){
 				//recuperer la liste produits
-				List<Produit> lp = ProduitDao.findAll();
-				request.setAttribute("listeP", lp);
+				List<Produit> lp = null;
+				try {
+					lp = ProduitDao.findAll();
+					request.setAttribute("listeP", lp);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				//montrer la page achat
 				request.getRequestDispatcher("achatForm.jsp").forward(request, response);
 				
@@ -88,7 +94,12 @@ public class GestionAchats extends HttpServlet {
 		//ajouter ligne de commande dans le panier
 		LigneCommande lc = new LigneCommande();
 		lc.setQte(qte);
-		lc.setProd(ProduitDao.find(idProduit));
+		try {
+			lc.setProd(ProduitDao.find(idProduit));
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		Commande panier = null;
 		Object obj = request.getSession().getAttribute("panier");
@@ -107,8 +118,14 @@ public class GestionAchats extends HttpServlet {
 		}
 		request.getSession().setAttribute("panier", panier);
 		
-		List<Produit> lp = ProduitDao.findAll();
-		request.setAttribute("listeP", lp);
+		List<Produit> lp;
+		try {
+			lp = ProduitDao.findAll();
+			request.setAttribute("listeP", lp);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//montrer la page achat
 		request.getRequestDispatcher("achatForm.jsp").forward(request, response);
 		
