@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 avr. 2017 18:57:41 by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="Gametyping" table="gametyping" catalog="videogames" optimistic-lock="version">
+        <composite-id name="id" class="GametypingId">
+            <key-property name="videogame" type="int">
+                <column name="videogame" />
+            </key-property>
+            <key-property name="gametype" type="string">
+                <column name="gametype" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

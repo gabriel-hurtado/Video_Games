@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 avr. 2017 18:57:41 by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="Orderline" table="orderline" catalog="videogames" optimistic-lock="version">
+        <composite-id name="id" class="OrderlineId">
+            <key-property name="id" type="int">
+                <column name="id" />
+            </key-property>
+            <key-property name="orderId" type="int">
+                <column name="order_id" />
+            </key-property>
+            <key-property name="videogame" type="int">
+                <column name="videogame" />
+            </key-property>
+            <key-property name="quantity" type="java.lang.Integer">
+                <column name="quantity" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>
