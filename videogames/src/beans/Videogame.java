@@ -9,7 +9,9 @@ public class Videogame implements java.io.Serializable {
 	private int id;
 	private String title;
 	private Float price;
-
+	private Console console; // optional and used only to wrap whole res from JOIN in one videogame object
+	private Gametype gameType;  // optional and used only to wrap whole res from JOIN in one videogame object
+	
 	public Videogame() {
 	}
 
@@ -47,4 +49,19 @@ public class Videogame implements java.io.Serializable {
 		this.price = price;
 	}
 
+	public Console getConsole() {
+		return this.console;
+	}
+
+	public void setConsole(Console console) {
+		this.console = console;
+	}
+
+	public Gametype getGametype() {
+		return this.gameType;
+	}
+
+	public void setGametype(Gametype gameType) {
+		this.gameType = gameType;
+	}
 }
