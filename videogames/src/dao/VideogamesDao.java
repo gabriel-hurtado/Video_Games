@@ -8,84 +8,65 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import beans.Videogame;;
+import beans.Videogame;
 
 public class VideogamesDao {
 
 	public static List<Videogame> findAll() throws ClassNotFoundException {
 
 
-		List<Videogame> lu = new ArrayList<Videogame>();
+		List<Videogame> videoGamesList = new ArrayList<Videogame>();
 		Connection cnx=null;
 		try {
 			cnx = ConnectionDB.getInstance().getCnx();
-			// ou Class.forName(com.mysql.jdbc.Driver.class.getName());
 
-			
-			//Requete
-			String sql = "SELECT id,description,prix FROM produits";
+			//SQL request
+			String sql = "SELECT id,title,price FROM videogame";
 			PreparedStatement ps = cnx.prepareStatement(sql);
 			
-			//Execution et traitement de la réponse
+			//Execution and request parsing
 			ResultSet res = ps.executeQuery();
-			
+				
 			while(res.next()){
-				lu.add(new Produit(res.getInt("id"),
-						res.getString("description"),
-						res.getDouble("prix")));
+				videoGamesList.add(new Videogame(res.getInt("id"), res.getString("title"), res.getFloat("price")));
 			}
 			
 			res.close();
-			ConnexionBDD.getInstance().closeCnx();			
+			ConnectionDB.getInstance().closeCnx();			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-
-		return lu;
+		return videoGamesList;
 	}
 	
-	public static Produit find(int id) throws ClassNotFoundException {
-		/*
-		 * List<beans.Utilisateur> lu = new ArrayList<Utilisateur>(); lu.add(new
-		 * Utilisateur(1,"nom1","tel1","username1","pwd1")); lu.add(new
-		 * Utilisateur(2,"nom2","tel2","username2","pwd2")); lu.add(new
-		 * Utilisateur(3,"nom3","tel3","username3","pwd3"));
-		 */
+	public static Videogame find(int id) throws ClassNotFoundException {
 
-		Produit lu = null;
-		
+		Videogame videoGame = null;
+
 		Connection cnx=null;
 		try {
-			cnx = ConnexionBDD.getInstance().getCnx();
-			// ou Class.forName(com.mysql.jdbc.Driver.class.getName());
-
+			cnx = ConnectionDB.getInstance().getCnx();
 		
-			//Requete
-			String sql = "SELECT id,description,prix FROM produits WHERE id=?";
+			//Request
+			String sql = "SELECT id,title,price FROM videogame WHERE id=?";
 			PreparedStatement ps = cnx.prepareStatement(sql);
 			ps.setInt(1, id);
-			
-			
-			//Execution et traitement de la réponse
+
+			//Execution and parsing 
+
 			ResultSet res = ps.executeQuery();
-			
+
 			while(res.next()){
-				lu = new Produit(res.getInt("id"),
-						res.getString("description"),
-						res.getDouble("prix"));
+				videoGame = new Videogame(res.getInt("id"), res.getString("title"), res.getFloat("price"));
 			}
-			
+
 			res.close();
-			ConnexionBDD.getInstance().closeCnx();			
+			ConnectionDB.getInstance().closeCnx();			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		//
-
-		return lu;
+		return videoGame;
 	}
-
 		
 }
