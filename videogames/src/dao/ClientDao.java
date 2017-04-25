@@ -46,40 +46,32 @@ public class ClientDao {
 		try {
 			try {
 				cnx = ConnectionDB.getInstance().getCnx();
+				//Requete
+				String sql = "SELECT id,username,password,adress FROM client";
+				PreparedStatement ps = cnx.prepareStatement(sql);
+				
+				//Execution et traitement de la r�ponse
+				ResultSet res = ps.executeQuery();
+				
+				while(res.next()){
+					cu.add(new Client(res.getString("username"),
+							res.getInt("id"),
+							res.getString("password"),
+							res.getInt("address")));
+				}
+				
+				res.close();
+				ConnectionDB.getInstance().closeCnx();
+				
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			// ou Class.forName(com.mysql.jdbc.Driver.class.getName());
-
-			
-			//Requete
-			String sql = "SELECT id,username,password,adress FROM client";
-			PreparedStatement ps = cnx.prepareStatement(sql);
-			
-			//Execution et traitement de la r�ponse
-			ResultSet res = ps.executeQuery();
-			
-			while(res.next()){
-				cu.add(new Client(res.getString("username"),
-						res.getInt("id"),
-						res.getString("password"),
-						res.getInt("address")));
-			}
-			
-			res.close();
-			try {
-				ConnectionDB.getInstance().closeCnx();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
+				
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		//
-
 		return cu;
 	}
 	
