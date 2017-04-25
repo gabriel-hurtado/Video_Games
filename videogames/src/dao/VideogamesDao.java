@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import beans.Console;
 import beans.Videogame;
 
 public class VideogamesDao {
@@ -28,7 +29,13 @@ public class VideogamesDao {
 			ResultSet res = ps.executeQuery();
 				
 			while(res.next()){
-				videoGamesList.add(new Videogame(res.getInt("id"), res.getString("title"), res.getFloat("price")));
+				int id=res.getInt("id");
+				String title=res.getString("title");
+				Float price=res.getFloat("price");
+				Videogame g=new Videogame(id,title,price);
+				List<Console> consoles= ConsoleDao.findAllById(g.getId());
+				g.setConsole(consoles);
+				videoGamesList.add(g);
 			}
 			
 			res.close();

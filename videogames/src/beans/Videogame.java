@@ -1,4 +1,7 @@
 package beans;
+
+import java.util.List;
+
 // Generated 4 avr. 2017 18:57:40 by Hibernate Tools 5.1.0.Alpha1
 
 /**
@@ -9,8 +12,8 @@ public class Videogame implements java.io.Serializable {
 	private int id;
 	private String title;
 	private Float price;
-	private Console console; // optional and used only to wrap whole res from JOIN in one videogame object
-	private Gametype gameType;  // optional and used only to wrap whole res from JOIN in one videogame object
+	private List<Console> consoles; // optional and used only to wrap whole res from JOIN in one videogame object
+	private List<Gametype> gameTypes;  // optional and used only to wrap whole res from JOIN in one videogame object
 	
 	public Videogame() {
 	}
@@ -49,19 +52,19 @@ public class Videogame implements java.io.Serializable {
 		this.price = price;
 	}
 
-	public Console getConsole() {
-		return this.console;
+	public List<Console> getConsole() {
+		return this.consoles;
 	}
 
-	public void setConsole(Console console) {
-		this.console = console;
+	public void setConsole(List<Console> console) {
+		this.consoles = console;
 	}
 
-	public Gametype getGametype() {
-		return this.gameType;
+	public List<Gametype> getGametype() {
+		return this.gameTypes;
 	}
 
-	public void setGametype(Gametype gameType) {
-		this.gameType = gameType;
+	public void setGametype(List<Gametype> gameType) {
+		this.gameTypes = gameType;
 	}
 }
