@@ -28,7 +28,7 @@ public class ClientDao {
 //			
 //			
 //			
-//			//Execution et traitement de la réponse
+//			//Execution et traitement de la rï¿½ponse
 //			res = ps.executeUpdate();
 //			
 //			ConnectionDB.getInstance().closeCnx();			
@@ -57,7 +57,7 @@ public class ClientDao {
 			String sql = "SELECT id,username,password,adress FROM client";
 			PreparedStatement ps = cnx.prepareStatement(sql);
 			
-			//Execution et traitement de la réponse
+			//Execution et traitement de la rï¿½ponse
 			ResultSet res = ps.executeQuery();
 			
 			while(res.next()){
@@ -105,7 +105,7 @@ public class ClientDao {
 			ps.setInt(1, id);
 			
 			
-			//Execution et traitement de la réponse
+			//Execution et traitement de la rï¿½ponse
 			ResultSet res = ps.executeQuery();
 			
 			while(res.next()){
@@ -130,6 +130,30 @@ public class ClientDao {
 		//
 
 		return u;
+	}
+	
+	public static int delete(int id) throws ClassNotFoundException {
+		int res = 0;
+		Connection cnx=null;
+		try {
+			cnx = ConnectionDB.getInstance().getCnx();
+			// ou Class.forName(com.mysql.jdbc.Driver.class.getName());
+
+				
+			//Requete
+			String sql = "DELETE FROM client WHERE id=?";
+			PreparedStatement ps = cnx.prepareStatement(sql);
+			ps.setInt(1,id);
+			
+			//Execution et traitement de la rÃ©ponse
+			res = ps.executeUpdate();
+			
+			ConnectionDB.getInstance().closeCnx();			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return res;
 	}
 	
 	
