@@ -33,7 +33,7 @@ public class ConsoleDao {
 			}
 
 			res2.close();
-			ConnectionDB.getInstance().closeCnx();			
+			//connection to be closed in calling class
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
