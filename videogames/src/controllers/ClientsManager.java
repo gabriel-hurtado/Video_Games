@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Client;
+import com.google.gson.Gson;
 import dao.ClientDao;
 
+
 /**
- * Servlet implementation class ClientsManager
+ * Servlet implementation class ClientManager
  */
 @WebServlet("/ClientsManager")
 public class ClientsManager extends HttpServlet {
@@ -30,17 +32,10 @@ public class ClientsManager extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		try {
-			List<Client> games= ClientDao.findAll();
-			Gson gson = new Gson();
-			response.getWriter().append( gson.toJson(games));
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-			
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Client> games= ClientDao.findAll();
+		Gson gson = new Gson();
+		response.getWriter().append( gson.toJson(games));
 		
 	}
 
