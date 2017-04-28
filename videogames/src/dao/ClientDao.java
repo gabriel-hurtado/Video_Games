@@ -31,8 +31,7 @@ public class ClientDao {
 						
 				while(res.next()) {
 					int clientId = res.getInt("id");
-					List<Address> addresses = AddressDao.findAddressesByClientId(clientId);
-					System.out.println(addresses.size() + "aeazeazeaze");
+					List<Address> addresses = AddressDao.findAllAddressesByClientId(clientId);
 					Client newClient = new Client(res.getString("username"),
 							clientId,
 							res.getString("password"),
@@ -82,7 +81,7 @@ public class ClientDao {
 			
 			while(res.next()){
 				int clientId = res.getInt("id");
-				List<Address> addresses = AddressDao.findAddressesByClientId(clientId);
+				List<Address> addresses = AddressDao.findAllAddressesByClientId(clientId);
 				Client newClient = new Client(res.getString("username"),
 						clientId,
 						res.getString("password"),

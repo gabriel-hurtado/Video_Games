@@ -12,7 +12,7 @@ import beans.Address;
 
 public class AddressDao {
 	
-	public static List<Address> findAddressesByClientId(int clientId) {
+	public static List<Address> findAllAddressesByClientId(int clientId) {
 	
 		List<Address> addresses = new ArrayList<Address>();
 		Connection cnx=null;
