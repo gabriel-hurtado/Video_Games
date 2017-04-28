@@ -9,35 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.Client;
+import beans.Address;
+import dao.AddressDao;
+
 
 public class ClientDao {
-
-//	public static int insert(Client c) throws ClassNotFoundException {
-//		int res = 0;
-//				
-//		Connection cnx=null;
-//		try {
-//			cnx = ConnexionBDD.getInstance().getCnx();
-//			
-//			//Requete
-//			String sql = "INSERT INTO client(username,password,adress) " +
-//					"VALUES(?,?,?)";
-//			//solve adress issue
-//			PreparedStatement ps = cnx.prepareStatement(sql);
-//			ps.setString(1, c.getNom());
-//			
-//			
-//			
-//			//Execution et traitement de la r�ponse
-//			res = ps.executeUpdate();
-//			
-//			ConnectionDB.getInstance().closeCnx();			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//
-//		return res;
-//	}
 	
 	public static List<Client> findAll() {
 	
@@ -52,11 +28,17 @@ public class ClientDao {
 				
 				//Execution et traitement de la r�ponse
 				ResultSet res = ps.executeQuery();
-				
-				while(res.next()){
-					cu.add(new Client(res.getString("username"),
-							res.getInt("id"),
-							res.getString("password")));
+						
+				while(res.next()) {
+					int clientId = res.getInt("id");
+					List<Address> addresses = AddressDao.findAddressesByClientId(clientId);
+					System.out.println(addresses.size() + "aeazeazeaze");
+					Client newClient = new Client(res.getString("username"),
+							clientId,
+							res.getString("password"),
+							addresses);
+					
+					cu.add(newClient);
 				}
 				
 				res.close();
@@ -75,7 +57,6 @@ public class ClientDao {
 	}
 	
 	public static Client find(int id) {
-
 
 		Client u = null;
 		
@@ -100,9 +81,14 @@ public class ClientDao {
 			ResultSet res = ps.executeQuery();
 			
 			while(res.next()){
-				u = new Client(res.getString("username"),
-						res.getInt("id"),
-						res.getString("password"));
+				int clientId = res.getInt("id");
+				List<Address> addresses = AddressDao.findAddressesByClientId(clientId);
+				Client newClient = new Client(res.getString("username"),
+						clientId,
+						res.getString("password"),
+						addresses);
+				
+				u = newClient;
 				break;
 			}
 			

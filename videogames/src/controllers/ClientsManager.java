@@ -33,9 +33,9 @@ public class ClientsManager extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Client> games= ClientDao.findAll();
+		List<Client> clients= ClientDao.findAll();
 		Gson gson = new Gson();
-		response.getWriter().append( gson.toJson(games));
+		response.getWriter().append( gson.toJson(clients));
 		
 	}
 

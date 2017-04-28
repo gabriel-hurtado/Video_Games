@@ -7,23 +7,25 @@ package beans;
 public class Address implements java.io.Serializable {
 
 	private int id;
-	private String addressLine;
+	private String address_line;
 	private String city;
 	private String country;
+	private int owner;
 
 	public Address() {
 	}
 
-	public Address(int id, String addressLine) {
+	public Address(int id, String address_line) {
 		this.id = id;
-		this.addressLine = addressLine;
+		this.address_line = address_line;
 	}
 
-	public Address(int id, String addressLine, String city, String country) {
+	public Address(int id, String address_line, String city, String country, int owner) {
 		this.id = id;
-		this.addressLine = addressLine;
+		this.address_line = address_line;
 		this.city = city;
 		this.country = country;
+		this.owner = owner;
 	}
 
 	public int getId() {
@@ -35,11 +37,11 @@ public class Address implements java.io.Serializable {
 	}
 
 	public String getAddressLine() {
-		return this.addressLine;
+		return this.address_line;
 	}
 
 	public void setAddressLine(String addressLine) {
-		this.addressLine = addressLine;
+		this.address_line = addressLine;
 	}
 
 	public String getCity() {
