@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Client;
+import beans.Address;
 import com.google.gson.Gson;
 import dao.ClientDao;
+import dao.AddressDao;
 
 
 /**
@@ -35,7 +37,15 @@ public class ClientsManager extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Client> clients= ClientDao.findAll();
 		Gson gson = new Gson();
-		response.getWriter().append( gson.toJson(clients));
+		response.getWriter().append("\nClient 3 : " + gson.toJson(clients));
+		
+		Address address = AddressDao.findById(1);
+		gson = new Gson();
+		response.getWriter().append("\n-----\n-----\nAddress 1 : " + gson.toJson(address));
+		
+		Client client = ClientDao.findById(3);
+		gson = new Gson();
+		response.getWriter().append("\n-----\n-----\nClient 3 : " + gson.toJson(client));
 		
 	}
 
