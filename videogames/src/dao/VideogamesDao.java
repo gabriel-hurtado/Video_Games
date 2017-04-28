@@ -10,6 +10,7 @@ import java.util.List;
 
 import beans.Console;
 import beans.Videogame;
+import beans.Gametype;
 
 public class VideogamesDao {
 
@@ -37,6 +38,8 @@ public class VideogamesDao {
 				Videogame g=new Videogame(id,title,price);
 				List<Console> consoles= ConsoleDao.findAllById(g.getId());
 				g.setConsole(consoles);
+				List<Gametype> types= GameTypeDao.findAllById(g.getId());
+				g.setGametype(types);
 				videoGamesList.add(g);
 			}
 			
@@ -69,11 +72,16 @@ public class VideogamesDao {
 			ResultSet res = ps.executeQuery();
 
 			while(res.next()){
-				videoGame = new Videogame(res.getInt("id"), res.getString("title"), res.getFloat("price"));
+				String title=res.getString("title");
+				Float price=res.getFloat("price");
+				videoGame =new Videogame(id,title,price);
+				List<Console> consoles= ConsoleDao.findAllById(videoGame.getId());
+				videoGame.setConsole(consoles);
+				List<Gametype> types= GameTypeDao.findAllById(videoGame.getId());
+				videoGame.setGametype(types);
 			}
 
-			res.close();
-			ConnectionDB.getInstance().closeCnx();			
+			res.close();		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
