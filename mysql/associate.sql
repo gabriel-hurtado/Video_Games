@@ -1,5 +1,5 @@
 CREATE TABLE orderline (
-	id INTEGER NOT NULL UNIQUE, # pkey
+	id INTEGER NOT NULL UNIQUE AUTO_INCREMENT, # pkey
 	order_id INTEGER NOT NULL references orders(id), #fkey order
 	videogame INTEGER NOT NULL references videogame(id), #fkey videogame
 	quantity INTEGER
