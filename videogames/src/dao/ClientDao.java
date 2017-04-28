@@ -47,7 +47,7 @@ public class ClientDao {
 			try {
 				cnx = ConnectionDB.getInstance().getCnx();
 				//Requete
-				String sql = "SELECT id,username,password,adress FROM client";
+				String sql = "SELECT id,username,password FROM client";
 				PreparedStatement ps = cnx.prepareStatement(sql);
 				
 				//Execution et traitement de la r�ponse
@@ -56,8 +56,7 @@ public class ClientDao {
 				while(res.next()){
 					cu.add(new Client(res.getString("username"),
 							res.getInt("id"),
-							res.getString("password"),
-							res.getInt("address")));
+							res.getString("password")));
 				}
 				
 				res.close();
@@ -103,8 +102,7 @@ public class ClientDao {
 			while(res.next()){
 				u = new Client(res.getString("username"),
 						res.getInt("id"),
-						res.getString("password"),
-						res.getInt("address"));
+						res.getString("password"));
 				break;
 			}
 			
