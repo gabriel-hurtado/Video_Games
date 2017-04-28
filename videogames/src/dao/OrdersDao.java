@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import beans.Address;
+import beans.Client;
 import beans.Console;
 import beans.Gametype;
 import beans.Orderline;
@@ -36,9 +38,10 @@ public class OrdersDao {
 				int id=res.getInt("id");
 				Date date=res.getDate("date");
 				Float total=res.getFloat("total");
-				int client=res.getInt("client");
-				int adress=res.getInt("address");
-				
+				int clientID=res.getInt("client");
+				int adressID=res.getInt("address");
+				Client client= ClientDao.findById(clientID);
+				Address adress= AddressDao.findById(adressID);
 				Orders o=new Orders(id,date,total,client,adress);
 				
 				List<Orderline> lines= OrderLineDao.findAllById(o.getId());

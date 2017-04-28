@@ -12,25 +12,25 @@ public class Orders implements java.io.Serializable {
 	private int id;
 	private Date date;
 	private Float total;
-	private int client;
-	private int address;
+	private Client client;
+	private Address address;
 	private List<Orderline> lines;
 	
 	public Orders() {
 	}
 
-	public Orders(int id, int client, int address) {
+	public Orders(int id, Client client, Address address) {
 		this.id = id;
-		this.client = client;
-		this.address = address;
+		this.setClient(client);
+		this.setAddress(address);
 	}
 
-	public Orders(int id, Date date, Float total, int client, int address) {
+	public Orders(int id, Date date, Float total, Client client, Address address) {
 		this.id = id;
 		this.date = date;
 		this.total = total;
-		this.client = client;
-		this.address = address;
+		this.setClient(client);
+		this.setAddress(address);
 	}
 
 	public int getId() {
@@ -57,21 +57,6 @@ public class Orders implements java.io.Serializable {
 		this.total = total;
 	}
 
-	public int getClient() {
-		return this.client;
-	}
-
-	public void setClient(int client) {
-		this.client = client;
-	}
-
-	public int getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(int address) {
-		this.address = address;
-	}
 
 	public List<Orderline> getLines() {
 		return lines;
@@ -79,6 +64,22 @@ public class Orders implements java.io.Serializable {
 
 	public void setLines(List<Orderline> lines) {
 		this.lines = lines;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }
