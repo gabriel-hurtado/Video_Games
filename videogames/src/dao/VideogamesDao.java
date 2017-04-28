@@ -13,9 +13,11 @@ import beans.Videogame;
 
 public class VideogamesDao {
 
-	public static List<Videogame> findAll() throws ClassNotFoundException {
+	public static List<Videogame> findAll() throws ClassNotFoundException, SQLException {
 
-
+		ResultSet res =null;
+		PreparedStatement ps = null;
+		
 		List<Videogame> videoGamesList = new ArrayList<Videogame>();
 		Connection cnx=null;
 		try {
@@ -23,10 +25,10 @@ public class VideogamesDao {
 
 			//SQL request
 			String sql = "SELECT id,title,price FROM videogame";
-			PreparedStatement ps = cnx.prepareStatement(sql);
+			ps = cnx.prepareStatement(sql);
 			
 			//Execution and request parsing
-			ResultSet res = ps.executeQuery();
+			res = ps.executeQuery();
 				
 			while(res.next()){
 				int id=res.getInt("id");
@@ -38,10 +40,12 @@ public class VideogamesDao {
 				videoGamesList.add(g);
 			}
 			
-			res.close();
-			ConnectionDB.getInstance().closeCnx();			
+					
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			res.close();
+			ConnectionDB.getInstance().closeCnx();		
 		}
 
 		return videoGamesList;
