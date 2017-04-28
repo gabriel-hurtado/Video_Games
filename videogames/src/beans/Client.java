@@ -14,11 +14,10 @@ public class Client implements java.io.Serializable {
 	public Client() {
 	}
 
-	public Client(String username, int id, String password, int address) {
+	public Client(String username, int id, String password) {
 		this.username = username;
 		this.id = id;
 		this.password = password;
-		this.address = address;
 	}
 
 	public String getUsername() {
