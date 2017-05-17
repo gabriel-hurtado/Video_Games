@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>OGaminG</title>
+	<title>OGaminG | Home</title>
 
 	<link rel="stylesheet" type="text/css" href="main.css">
 
@@ -34,8 +34,36 @@
 	    </ul>
 	  </div>
 	</nav>
-
 	<script>
+
+	function getQuery(url, callback){
+	    var request = new XMLHttpRequest();
+
+	    request.onload = function() {
+	        var state = this.readyState;
+	        var responseCode = request.status;
+	        console.log("request.onload called. readyState: " + state + "; status: " + responseCode);
+
+	        if (state == this.DONE && responseCode == 200) {
+	            var responseData = this.responseText;
+	            console.log("Success: " + responseData.length  + " chars received.");
+	            callback(JSON.parse(responseData));	
+	        }
+	    };
+
+	    request.error = function(e) {
+	        console.log("request.error called. Error: " + e);
+	    };
+
+	    request.onreadystatechange = function(){
+	        console.log("request.onreadystatechange called. readyState: " + this.readyState);
+	    };
+	    
+	    request.open("GET", url);
+	    request.setRequestHeader('Access-Control-Allow-Origin','*');
+	    request.send(null);
+	};
+
 	const parseData = data => {
 		console.log(data);
 		const n = data.length;
@@ -50,34 +78,15 @@
 		}
 	}
 
+	// getting all the videogames information
+	const getVideoGamesGallery = () => {
+    	const url = "http://localhost:8080/Video_Games/VideoGamesManager";
+    	getQuery(url, parseData);
+	}
+
 	window.onload = function() {
-        var url = "http://localhost:8080/Video_Games/VideoGamesManager";
-        var request = new XMLHttpRequest();
-
-        request.onload = function() {
-            var state = this.readyState;
-            var responseCode = request.status;
-            console.log("request.onload called. readyState: " + state + "; status: " + responseCode);
-
-            if (state == this.DONE && responseCode == 200) {
-                var responseData = this.responseText;
-                console.log("Success: " + responseData.length  + " chars received.");
-                parseData(JSON.parse(responseData));	
-            }
-        };
-
-        request.error = function(e) {
-            console.log("request.error called. Error: " + e);
-        };
-
-        request.onreadystatechange = function(){
-            console.log("request.onreadystatechange called. readyState: " + this.readyState);
-        };
-        
-        request.open("GET", url);
-        request.setRequestHeader('Access-Control-Allow-Origin','*');
-        request.send(null);
-    };
+    	getVideoGamesGallery()
+	}
 
 	</script>
 	

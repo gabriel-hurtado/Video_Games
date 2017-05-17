@@ -55,6 +55,48 @@ public class ClientDao {
 		return cu;
 	}
 	
+	
+	public static Client findClientByUsernameAndPassword(int id) {
+
+		Client u = null;
+		
+		Connection cnx=null;
+		try {
+			try {
+				cnx = ConnectionDB.getInstance().getCnx();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+			//Requete
+			String sql = "SELECT username, password FROM client WHERE id = ?";
+			PreparedStatement ps = cnx.prepareStatement(sql);
+			ps.setInt(1, id);
+			
+			//Execution et traitement de la r�ponse
+			ResultSet res = ps.executeQuery();
+			
+			while(res.next()){
+				int clientId = id;
+				List<Address> addresses = AddressDao.findAllAddressesByClientId(clientId);
+				Client newClient = new Client(res.getString("username"),
+						clientId,
+						res.getString("password"),
+						addresses);
+				
+				u = newClient;
+				break;
+			}
+			
+			res.close();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return u;
+	}
+	
 	public static Client findById(int id) {
 
 		Client u = null;
