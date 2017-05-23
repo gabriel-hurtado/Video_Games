@@ -51,11 +51,21 @@
     </div>
 </div>
 </div>
-<script type="text/javascript">
-
+<script type="text/javascript">	
+	//setting session var (userId)
+	const setCurrentUserId = id => {
+	    sessionStorage.setItem('userId', id);
+	    console.log("I set the userId in storage from login.jsp as " + sessionStorage.getItem('userId'));
+	};
+	
 	const parseData = data => {
-		console.log(data);
-		(data == true) ? window.location.replace("./index.jsp") : alert("wrong credentials");
+		console.log("data received is " + data);
+		if(data == true) {
+			setCurrentUserId(data);
+			window.location.replace("./index.jsp")
+		} else {
+			alert("wrong credentials");
+		}
 	}
 
 	const urlEncodeParameters = obj => {
@@ -105,7 +115,7 @@
 			userName : userName,
 			userPassword : userPassword
 		}
-    	const url = "http://localhost:8080/Video_Games/ClientsManager";
+    	const url = "http://localhost:8080/Video_Games/LoginManager";
     	return postQuery(url, data, parseData);
 	};
 

@@ -29,11 +29,19 @@
 	    </div>
 	    <ul class="nav navbar-nav">
 	      <li class="active"><a href="index.jsp">Home</a></li>
-	      <li><a href="infos.jsp">Infos</a></li>
+	      <li><a id = "userTab" href="infos.jsp"> -- </a></li>
 	      <li><a href="panier.jsp">Panier</a></li>
 	    </ul>
 	  </div>
 	</nav>
+
+	<div class="panel-heading">
+       <div class="panel-title text-center">
+       		<h1 id = "welcomeMessage" class="welcomeMessage">Hey buddy</h1>
+       		<hr />
+       	</div>
+    </div>
+
 	<script>
 
 	function getQuery(url, callback){
@@ -64,160 +72,144 @@
 	    request.send(null);
 	};
 
-	const parseData = data => {
+	const urlEncodeParameters = obj => {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+    };
+
+	// Execute a post query and pass the servlet response in callback
+	const postQuery = (url, data, callback) => {
+	    var request = new XMLHttpRequest();
+
+		const params = urlEncodeParameters(data);
+		
+	    request.onload = function() {
+	        var state = this.readyState;
+	        var responseCode = request.status;
+	        console.log("request.onload called. readyState: " + state + "; status: " + responseCode);
+
+	        if (state == this.DONE && responseCode == 200) {
+	            var responseData = this.responseText;
+	            console.log("Success: " + responseData.length  + " chars received.");
+	            callback(JSON.parse(responseData));	
+	        }
+	    };
+
+	    request.error = function(e) {
+	        console.log("request.error called. Error: " + e);
+	    };
+
+	    request.onreadystatechange = function(){
+	        console.log("request.onreadystatechange called. readyState: " + this.readyState);
+	    };
+	    
+	    request.open("POST", url, true);
+
+		//Send the proper header information along with the request
+		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+		request.send(params);
+	};
+
+	// modifying video games info in DOM
+	const parseDataVideoGames = data => {
 		console.log(data);
 		const n = data.length;
-		const productTitles = document.getElementsByClassName("title");
-		const productLead = document.getElementsByClassName("lead");
+		// building dynamic gallery 
+		data.forEach(video => {
+			const item = document.createElement("div");
+			item.classList.add('item', 'col-xs-4', 'col-lg-4');
+			const thumbnail = document.createElement("div");
+			thumbnail.classList.add('thumbnail');
 
-		for (var i = 0; i < data.length; i++) {
-			// modifying title for each video games
-			productTitles[i].innerHTML = data[i].title;
-			// modifying price for each video games
-			productLead[i].innerHTML = "$" + data[i].price;
-		}
-	}
+			const img = document.createElement("img");
+			img.classList.add('group', 'list-group-image');
+			img.src = video.picture;
+			img.style.height = '170px';
+    		img.style.width = '340px';
+			const caption = document.createElement("div");
+			caption.classList.add('caption');
+			const h4 = document.createElement("h4");
+			h4.classList.add('title', 'group', 'inner', 'list-group-item-heading');
+			h4.innerHTML = video.title;
+			const p = document.createElement("p");
+			p.classList.add('group', 'inner', 'list-group-item-text');
+			if (video.consoles && video.consoles.length > 0) {
+				p.innerHTML = "<strong> Console </strong>";
+				video.consoles.forEach(console => {
+					p.innerHTML += console.name + " ";
+				}); 
+			}
+			if (video.gameTypes && video.gameTypes.length > 0) {
+				p.innerHTML += "</br><strong> Type </strong>";
+				video.gameTypes.forEach(type => {
+					p.innerHTML += type.name + " ";
+				});
+			}
+			const row = document.createElement("div");
+			row.classList.add('row');
+			const col = document.createElement("div");
+			col.classList.add('col-xs-12', 'col-md-6');
+			const p_lead = document.createElement("p");
+			p_lead.classList.add(('lead'));
+			p_lead.innerHTML = "$" + parseFloat(video.price);
+			const col2 = document.createElement("div");
+			col2.classList.add('col-xs-12', 'col-md-6');
+			const  btn = document.createElement("a");
+			btn.classList.add('btn', 'btn-success');
+			btn.innerHTML = "Ajouter au panier";
+			col2.appendChild(btn);
+			col.appendChild(p_lead);
+			row.appendChild(col);
+			row.appendChild(col2);
+			caption.appendChild(h4);
+			caption.appendChild(p);
+			caption.appendChild(row);
+			thumbnail.appendChild(img);
+			thumbnail.appendChild(caption);
+			item.appendChild(thumbnail);
+			document.getElementById("products").appendChild(item);
+		});	            
+	};
+
+	// modifying client info in DOM
+	const parseDataClients = client => {
+		console.log("Client received" + JSON.stringify(client));
+		const welcomeMessage = document.getElementById("welcomeMessage");
+		welcomeMessage.innerHTML = "Game on "+ client.username + ".";
+		const userTab = document.getElementById("userTab");
+		userTab.innerHTML = "@ " + client.username;
+
+		
+	};
 
 	// getting all the videogames information
 	const getVideoGamesGallery = () => {
     	const url = "http://localhost:8080/Video_Games/VideoGamesManager";
-    	getQuery(url, parseData);
-	}
+    	getQuery(url, parseDataVideoGames);
+	};
+
+	const getUserInformation = userId => {
+		const url = "http://localhost:8080/Video_Games/ClientsManager";
+		const data = {
+			id : userId
+		};
+    	postQuery(url, data, parseDataClients);
+	};
 
 	window.onload = function() {
-    	getVideoGamesGallery()
-	}
+		if (sessionStorage.getItem('userId')) {
+			getUserInformation(sessionStorage.getItem('userId'));
+		}
+    	getVideoGamesGallery();
+	};
 
 	</script>
 	
 	<div class="container">
 	<div id="products" class="row list-group">
-	    <div class="item  col-xs-4 col-lg-4">
-	        <div class="thumbnail">
-	            <img class="group list-group-image" src="http://www.boardknight.com/wp-content/uploads/2015/02/knights-1920x1200.jpg" alt="" />
-	            <div class="caption">
-	                <h4 class="title group inner list-group-item-heading">
-	                    Product title</h4>
-	                <p class="group inner list-group-item-text">
-	                    Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-	                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-	                <div class="row">
-	                    <div class="col-xs-12 col-md-6">
-	                        <p class="lead">
-	                            $21.000</p>
-	                    </div>
-	                    <div class="col-xs-12 col-md-6">
-	                        <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	    <div class="item  col-xs-4 col-lg-4">
-	        <div class="thumbnail">
-	            <img class="group list-group-image" src="https://magazinegk.fr/wp-content/uploads/2016/08/landscape-1456759219-14993-call-of-duty-4-modern-warfare-game-desktop-wallpaper-2560x1600.jpg" alt="" />
-	            <div class="caption">
-	                <h4 class="title group inner list-group-item-heading">
-	                    Product title</h4>
-	                <p class="group inner list-group-item-text">
-	                    Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-	                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-	                <div class="row">
-	                    <div class="col-xs-12 col-md-6">
-	                        <p class="lead">
-	                            $21.000</p>
-	                    </div>
-	                    <div class="col-xs-12 col-md-6">
-	                        <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	    <div class="item  col-xs-4 col-lg-4">
-	        <div class="thumbnail">
-	            <img class="group list-group-image" src="http://cooldown.fr/wp-content/uploads/2016/10/skyrim-special-edition-pc-mauvais-son.jpg" alt="" />
-	            <div class="caption">
-	                <h4 class="title group inner list-group-item-heading">
-	                    Product title</h4>
-	                <p class="group inner list-group-item-text">
-	                    Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-	                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-	                <div class="row">
-	                    <div class="col-xs-12 col-md-6">
-	                        <p class="lead">
-	                            $21.000</p>
-	                    </div>
-	                    <div class="col-xs-12 col-md-6">
-	                        <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	    <div class="item  col-xs-4 col-lg-4">
-	        <div class="thumbnail">
-	            <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-	            <div class="caption">
-	                <h4 class="title group inner list-group-item-heading">
-	                    Product title</h4>
-	                <p class="group inner list-group-item-text">
-	                    Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-	                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-	                <div class="row">
-	                    <div class="col-xs-12 col-md-6">
-	                        <p class="lead">
-	                            $21.000</p>
-	                    </div>
-	                    <div class="col-xs-12 col-md-6">
-	                        <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	    <div class="item  col-xs-4 col-lg-4">
-	        <div class="thumbnail">
-	            <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-	            <div class="caption">
-	                <h4 class="title group inner list-group-item-heading">
-	                    Product title</h4>
-	                <p class="group inner list-group-item-text">
-	                    Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-	                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-	                <div class="row">
-	                    <div class="col-xs-12 col-md-6">
-	                        <p class="lead">
-	                            $21.000</p>
-	                    </div>
-	                    <div class="col-xs-12 col-md-6">
-	                        <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	    <div class="item  col-xs-4 col-lg-4">
-	        <div class="thumbnail">
-	            <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-	            <div class="caption">
-	                <h4 class="title group inner list-group-item-heading">
-	                    Product title</h4>
-	                <p class="group inner list-group-item-text">
-	                    Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-	                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-	                <div class="row">
-	                    <div class="col-xs-12 col-md-6">
-	                        <p class="lead">
-	                            $21.000</p>
-	                    </div>
-	                    <div class="col-xs-12 col-md-6">
-	                        <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
 	</div>
 	</div>
 

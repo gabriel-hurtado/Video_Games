@@ -19,14 +19,14 @@ import dao.AddressDao;
 /**
  * Servlet implementation class ClientManager
  */
-@WebServlet("/ClientsManager")
-public class ClientsManager extends HttpServlet {
+@WebServlet("/LoginManager")
+public class LoginManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClientsManager() {
+    public LoginManager() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,11 +45,16 @@ public class ClientsManager extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		
-		Client client = ClientDao.findById(id);
-		Gson gson = new Gson();
-		response.getWriter().append(gson.toJson(client));
+		String username = request.getParameter("userName");
+		String password = request.getParameter("userPassword");
+			
+		int clientId = ClientDao.findClientByUsernameAndPassword(username, password);
+		if(clientId == -1) {
+			//invalid credentials
+			response.sendError(401,"Wrong credentials...");
+		} else {
+			Gson gson = new Gson();
+			response.getWriter().append(gson.toJson(clientId));
+		}
 	}
-
 }

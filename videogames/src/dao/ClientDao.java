@@ -56,9 +56,9 @@ public class ClientDao {
 	}
 	
 	
-	public static Client findClientByUsernameAndPassword(int id) {
+	public static int findClientByUsernameAndPassword(String username, String password) {
 
-		Client u = null;
+		int id = -1 ;
 		
 		Connection cnx=null;
 		try {
@@ -70,23 +70,15 @@ public class ClientDao {
 			}
 		
 			//Requete
-			String sql = "SELECT username, password FROM client WHERE id = ?";
+			String sql = "SELECT id FROM client WHERE username = ? AND password = ?";
 			PreparedStatement ps = cnx.prepareStatement(sql);
-			ps.setInt(1, id);
+			ps.setString(1, username);
+			ps.setString(2, password);
 			
 			//Execution et traitement de la r�ponse
 			ResultSet res = ps.executeQuery();
-			
-			while(res.next()){
-				int clientId = id;
-				List<Address> addresses = AddressDao.findAllAddressesByClientId(clientId);
-				Client newClient = new Client(res.getString("username"),
-						clientId,
-						res.getString("password"),
-						addresses);
-				
-				u = newClient;
-				break;
+			while(res.next()) {
+				id = res.getInt("id");
 			}
 			
 			res.close();
@@ -94,7 +86,7 @@ public class ClientDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return u;
+		return id;
 	}
 	
 	public static Client findById(int id) {

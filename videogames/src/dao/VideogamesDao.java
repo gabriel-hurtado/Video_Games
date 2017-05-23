@@ -25,7 +25,7 @@ public class VideogamesDao {
 			cnx = ConnectionDB.getInstance().getCnx();
 
 			//SQL request
-			String sql = "SELECT id,title,price FROM videogame";
+			String sql = "SELECT id,title,picture,price FROM videogame";
 			ps = cnx.prepareStatement(sql);
 			
 			//Execution and request parsing
@@ -34,8 +34,14 @@ public class VideogamesDao {
 			while(res.next()){
 				int id=res.getInt("id");
 				String title=res.getString("title");
+				String picture = res.getString("picture");
 				Float price=res.getFloat("price");
-				Videogame g=new Videogame(id,title,price);
+				// set new videogame using setters only
+				Videogame g = new Videogame();
+				g.setId(id);
+				g.setTitle(title);
+				g.setPrice(price);
+				g.setPicture(picture);
 				List<Console> consoles= ConsoleDao.findAllById(g.getId());
 				g.setConsole(consoles);
 				List<Gametype> types= GameTypeDao.findAllById(g.getId());
@@ -63,7 +69,7 @@ public class VideogamesDao {
 			cnx = ConnectionDB.getInstance().getCnx();
 		
 			//Request
-			String sql = "SELECT id,title,price FROM videogame WHERE id=?";
+			String sql = "SELECT id,title,picture,price FROM videogame WHERE id=?";
 			PreparedStatement ps = cnx.prepareStatement(sql);
 			ps.setInt(1, id);
 
@@ -73,8 +79,14 @@ public class VideogamesDao {
 
 			while(res.next()){
 				String title=res.getString("title");
+				String picture=res.getString("picture");
 				Float price=res.getFloat("price");
-				videoGame =new Videogame(id,title,price);
+				// set new videogame using setters only
+				Videogame g = new Videogame();
+				g.setId(id);
+				g.setTitle(title);
+				g.setPrice(price);
+				g.setPicture(picture);
 				List<Console> consoles= ConsoleDao.findAllById(videoGame.getId());
 				videoGame.setConsole(consoles);
 				List<Gametype> types= GameTypeDao.findAllById(videoGame.getId());
