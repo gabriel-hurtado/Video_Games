@@ -69,8 +69,8 @@
                     </center>
                     <hr>
                     <center>
-                    <p id = "description" class="text-left"><strong>Bio: </strong><br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sem dui, tempor sit amet commodo a, vulputate vel tellus.</p>
+                    <strong>I think ... <br><p id = "description" class="text-left">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sem dui, tempor sit amet commodo a, vulputate vel tellus.</p></strong>
                     <br>
                     </center>
                 </div>
