@@ -26,6 +26,8 @@
 	window.onload = function() {
 		if (sessionStorage.getItem('userId')) {
 			getUserInformation(sessionStorage.getItem('userId'));
+		} else {
+			window.location.replace("./login.jsp");
 		}
 	};
 	</script>
@@ -33,7 +35,7 @@
 	<nav class="navbar navbar-inverse">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
-	      <a class="navbar-brand" href="#">OGaminG</a>H
+	      <a class="navbar-brand" href="login.jsp">OGaminG</a>H
 	    </div>
 	    <ul class="nav navbar-nav">
 	      <li ><a href="index.jsp">Home</a></li>
@@ -44,7 +46,7 @@
 
 
 	<div class="container">
-    <div class="span3 well">
+    <div class="span3 well" id = "background1">
         <center>
         <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img id ="picture2" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R" name="aboutme" width="140" height="140" class="img-circle"></a>
         <h3 id = "username">John Doe</h3>
@@ -58,8 +60,8 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title" id="myModalLabel">More About me</h4>
-                    </div>
-                <div class="modal-body">
+                 </div>
+                <div class="modal-body" id = "background2">
                     <center id = "infos">
                     <img id = "picture" src="https://scontent-cdg2-1.xx.fbcdn.net/v/t31.0-8/10847178_783799198362583_1631970166806004189_o.jpg?oh=02271f8cc535a5bcb4383076d7145669&oe=59A46947" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
                     <h3 id = "name" class="media-heading">John Doe</h3>
@@ -138,6 +140,10 @@
 		picture.src = client.picture;
 		const picture2 = document.getElementById("picture2");
 		picture2.src = client.picture;
+		const background1 = document.getElementById("background1");
+		background1.style.backgroundImage = "url('"+client.backgroundPicture+"')";
+		const background2 = document.getElementById("background2");
+		background2.style.backgroundImage = "url('"+client.backgroundPicture+"')";
 		const description = document.getElementById("description");
 		description.innerHTML = client.description;
 
@@ -147,6 +153,7 @@
 				span.classList.add('label', 'label-info');
 				span.innerHTML = address.address_line + " " + address.city + " " + address.country;
 				document.getElementById("infos").appendChild(span);
+				document.getElementById("infos").appendChild(document.createElement("br"));
 			});
 		}
 	};

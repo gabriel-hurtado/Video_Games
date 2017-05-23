@@ -119,6 +119,7 @@ public class ClientDao {
 				newClient.setName(res.getString("name"));
 				newClient.setSurname(res.getString("surname"));
 				newClient.setPicture(res.getString("picture"));
+				newClient.setBackgroundPicture(res.getString("background_picture"));
 				newClient.setDescription(res.getString("description"));
 				newClient.setAddress(addresses);
 				u = newClient;

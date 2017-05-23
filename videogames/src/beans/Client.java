@@ -15,6 +15,7 @@ public class Client implements java.io.Serializable {
 	private String surname;
 	private String description;
 	private String picture;
+	private String backgroundPicture;
 	private List<Address> address;
 
 	public Client() {
@@ -57,6 +58,14 @@ public class Client implements java.io.Serializable {
 
 	public void setPicture(String picture) {
 		this.picture = picture;
+	}
+	
+	public String getBackgroundPicture() {
+		return this.backgroundPicture;
+	}
+
+	public void setBackgroundPicture(String backgroundPicture) {
+		this.backgroundPicture = backgroundPicture;
 	}
 	
 	public String getDescription() {

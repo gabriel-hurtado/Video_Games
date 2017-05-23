@@ -6,5 +6,6 @@ CREATE TABLE client (
     surname CHAR(15),
     description VARCHAR(255),
     picture VARCHAR(255),
+    background_picture VARCHAR(255),
     primary key (id)
 );
