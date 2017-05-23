@@ -60,7 +60,7 @@
 	
 	const parseData = data => {
 		console.log("data received is " + data);
-		if(data == true) {
+		if(data != -1) {
 			setCurrentUserId(data);
 			window.location.replace("./index.jsp")
 		} else {
@@ -90,6 +90,8 @@
 	            var responseData = this.responseText;
 	            console.log("Success: " + responseData.length  + " chars received.");
 	            callback(JSON.parse(responseData));	
+	        } else {
+	        	alert(this.responseText);
 	        }
 	    };
 

@@ -30,7 +30,6 @@
 	    <ul class="nav navbar-nav">
 	      <li class="active"><a href="index.jsp">Home</a></li>
 	      <li><a id = "userTab" href="infos.jsp"> -- </a></li>
-	      <li><a href="panier.jsp">Panier</a></li>
 	    </ul>
 	  </div>
 	</nav>

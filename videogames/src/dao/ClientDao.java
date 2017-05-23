@@ -103,7 +103,7 @@ public class ClientDao {
 			}
 		
 			//Requete
-			String sql = "SELECT username, password FROM client WHERE id = ?";
+			String sql = "SELECT * FROM client WHERE id = ?";
 			PreparedStatement ps = cnx.prepareStatement(sql);
 			ps.setInt(1, id);
 			
@@ -113,11 +113,14 @@ public class ClientDao {
 			while(res.next()){
 				int clientId = id;
 				List<Address> addresses = AddressDao.findAllAddressesByClientId(clientId);
-				Client newClient = new Client(res.getString("username"),
-						clientId,
-						res.getString("password"),
-						addresses);
-				
+				Client newClient = new Client();
+				newClient.setUsername(res.getString("username"));
+				newClient.setPassword(res.getString("password"));
+				newClient.setName(res.getString("name"));
+				newClient.setSurname(res.getString("surname"));
+				newClient.setPicture(res.getString("picture"));
+				newClient.setDescription(res.getString("description"));
+				newClient.setAddress(addresses);
 				u = newClient;
 				break;
 			}
