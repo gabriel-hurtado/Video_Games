@@ -160,6 +160,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginOnline() {
+        //TODO show loading
         String url="http://10.0.2.2:8080/Video_Games/LoginManager?";
         String urlWithParam=url+"userName="+email+"&userPassword="+password;
         AsyncHttpClient client = new AsyncHttpClient();
@@ -172,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
                 boolean success=false;
 
 
-                String result = String.valueOf(response);    // Converts the string "result" to a JSONObject
+                String result = String.valueOf(response);    // Converts the string "result" to a string
 
 
                     SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
@@ -182,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.commit();
                     success=true;// I don't need to explain this one, right?
 
-                    Intent i= new Intent(getBaseContext(),MainActivity.class);
+                    Intent i= new Intent(getBaseContext(),TabActivity.class);
                     startActivity(i);
                     finish();
 

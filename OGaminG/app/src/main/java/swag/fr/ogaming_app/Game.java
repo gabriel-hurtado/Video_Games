@@ -11,7 +11,7 @@ public class Game {
     private String title;
     private String picture;
     private Double price;
-    private List<Console> consoles; // optional and used only to wrap whole res from JOIN in one videogame object
+    private List<Consoles> consoles; // optional and used only to wrap whole res from JOIN in one videogame object
     private List<Gametype> gameTypes;  // optional and used only to wrap whole res from JOIN in one videogame object
 
     public Game() {
@@ -25,6 +25,15 @@ public class Game {
         this.id = id;
         this.title = title;
         this.price = price;
+    }
+
+    public Game(int id,String title,String picture,Double price,List<Consoles> v,List<Gametype> g) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.picture=picture;
+        this.consoles=v;
+        this.gameTypes=g;
     }
 
     public int getId() {
@@ -59,11 +68,11 @@ public class Game {
         this.price = price;
     }
 
-    public List<Console> getConsole() {
+    public List<Consoles> getConsole() {
         return this.consoles;
     }
 
-    public void setConsole(List<Console> console) {
+    public void setConsole(List<Consoles> console) {
         this.consoles = console;
     }
 

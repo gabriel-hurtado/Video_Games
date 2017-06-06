@@ -39,17 +39,23 @@ public class SpashScreen extends AppCompatActivity {
 
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             String id = pref.getString("id", "");
-            //if(!id.equals("")) { keep loged in user in memory
-             //   Intent i = new Intent(getBaseContext(), MainActivity.class);
-              //  startActivity(i);
-            //}
-            //else {
+            if(!id.equals("")) { // keep loged in user in memory
+              Intent i = new Intent(getBaseContext(), TabActivity.class);
+              startActivity(i);
+            }
+            else {
                 Intent i = new Intent(getBaseContext(),LoginActivity.class);
                 startActivity(i);
                 finish();
-            //}
+            }
 
-          //  finish();
+            finish();
+
+        /* no auto login
+         Intent i = new Intent(getBaseContext(),LoginActivity.class);
+                startActivity(i);
+                finish();
+         */
 
 
     }
