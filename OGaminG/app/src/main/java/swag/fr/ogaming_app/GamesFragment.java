@@ -88,7 +88,7 @@ public class GamesFragment extends Fragment {
                     e.printStackTrace();
                 }
                 //TODO
-                int x=2;
+
                 mAdapter.setData(json);
                 mAdapter.notifyDataSetChanged();
             }

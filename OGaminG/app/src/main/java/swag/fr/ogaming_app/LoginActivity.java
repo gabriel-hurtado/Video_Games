@@ -40,6 +40,7 @@ import com.loopj.android.http.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,19 +174,24 @@ public class LoginActivity extends AppCompatActivity {
                 boolean success=false;
 
 
-                String result = String.valueOf(response);    // Converts the string "result" to a string
-
-
+                try {
+                    String res=new String(response, "UTF-8");   // Converts the string "result" to a string
                     SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
                     editor.putString("login",email);
                     editor.putString("password",password);
-                    editor.putString("id",result);
+                    editor.putString("id",res);
                     editor.commit();
                     success=true;// I don't need to explain this one, right?
 
                     Intent i= new Intent(getBaseContext(),TabActivity.class);
                     startActivity(i);
                     finish();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+
+
 
 
                 }

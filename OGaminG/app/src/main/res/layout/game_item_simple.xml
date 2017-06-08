@@ -14,7 +14,7 @@
             android:layout_height="250dp"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/knights_1920x1200" />
+            android:src="@drawable/ic_cached_black_48dp" />
 
         <TextView
             android:id="@+id/Nom"

@@ -1,18 +1,13 @@
 package swag.fr.ogaming_app;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -38,7 +33,7 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder
 
 
 
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_simple, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.game_item_simple, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -49,7 +44,7 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder
         holder.prix.setText(String.format("%s€", String.valueOf(games.get(position).getPrice())));
         Picasso.with(ct)
                 .load(games.get(position).getPicture())
-                .placeholder(R.drawable.knights_1920x1200) //optional
+                .placeholder(R.drawable.ic_cached_black_48dp) //optional
                 .resize(1000, 1000)         //optional
                 .centerCrop()                        //optional
                 .into( holder.pi);
