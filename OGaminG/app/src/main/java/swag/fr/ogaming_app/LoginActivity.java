@@ -157,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 3;
     }
 
     private void loginOnline() {
@@ -180,7 +180,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("login",email);
                     editor.putString("password",password);
                     editor.putString("id",res);
-                    editor.commit();
+                    editor.apply();
                     success=true;// I don't need to explain this one, right?
 
                     Intent i= new Intent(getBaseContext(),TabActivity.class);

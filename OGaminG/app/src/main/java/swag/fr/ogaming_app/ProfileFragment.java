@@ -35,7 +35,11 @@ public class ProfileFragment extends Fragment {
     TextView name;
     TextView desc;
     ImageView back;
+    private RecyclerView mRecyclerView;
+    private AdressesAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
     ImageView profile;
+
     public ProfileFragment(){
 
     }
@@ -54,6 +58,19 @@ public class ProfileFragment extends Fragment {
         desc= (TextView) v.findViewById(R.id.user_profile_short_bio);
         back= (ImageView) v.findViewById(R.id.header_cover_image);
         profile= (ImageView) v.findViewById(R.id.user_profile_photo);
+
+
+        mAdapter=new AdressesAdapter(getContext());
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.AddressList);
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mRecyclerView.setAdapter(mAdapter);
+
+
         populate();
         return v;
     }
@@ -100,7 +117,7 @@ public class ProfileFragment extends Fragment {
         String nameToPrint=json.getString("username")+" / "+json.getString("name")+" "+json.getString("surname");
         String des= json.getString("description");
         desc.setText(des);
-        //name.setText(nameToPrint);
+        name.setText(nameToPrint);
         String backgroupLink=json.getString("backgroundPicture");
         String profileLink=json.getString("picture");
 
@@ -120,10 +137,14 @@ public class ProfileFragment extends Fragment {
                 .into( profile);
 
 
-        /*
-        mAdapter.setData(json);
+        JSONArray ad=json.getJSONArray("address");
+        ArrayList<Address> addresses =new ArrayList<>();
+        for (int j=0;j<ad.length();j++){
+            //(String address_line, String city, String country
+            addresses.add(new Address(ad.getJSONObject(j).getString("address_line"),ad.getJSONObject(j).getString("city"),ad.getJSONObject(j).getString("country")));
+        }
+        mAdapter.setData(addresses);
         mAdapter.notifyDataSetChanged();
-        */
     }
 
 

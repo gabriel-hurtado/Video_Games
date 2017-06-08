@@ -56,8 +56,8 @@ public class SpashScreen extends AppCompatActivity {
          Intent i = new Intent(getBaseContext(),LoginActivity.class);
                 startActivity(i);
                 finish();
-         */
 
+        */
 
     }
 
