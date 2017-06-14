@@ -159,7 +159,7 @@
 			//const  btn = document.createElement("a");
 			//btn.classList.add('btn', 'btn-success');
 			//btn.innerHTML = "Ajouter au panier";
-			//col2.appendChild(btn);
+			//nippecol2.appendChild(btn);
 			col.appendChild(p_lead);
 			row.appendChild(col);
 			row.appendChild(col2);

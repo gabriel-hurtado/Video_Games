@@ -18,6 +18,7 @@
 
 	<link rel="stylesheet" type="text/css" href="login.css">
 </head>
+<body>
 <script>
  const login = () => {
 	 const userName = document.getElementById('userName').value;
@@ -29,8 +30,11 @@
 	 }
  }       
 </script>
-
+<div class="page-header">
+  <h1 class="logo">OgaminG <small>Welcome to our place!</small></h1>
+</div>
 <div class="jumbotron">
+
 <div class="container">
     <div class="row">
         <div class="col-md-offset-5 col-md-3">
@@ -122,4 +126,9 @@
 	};
 
 </script>
+
+	<footer>
+		<p>SR03 / Hurtado Durocher </p>
+	</footer>
 </body>
+</html>
