@@ -156,10 +156,10 @@
 			p_lead.innerHTML = "$" + parseFloat(video.price);
 			const col2 = document.createElement("div");
 			col2.classList.add('col-xs-12', 'col-md-6');
-			const  btn = document.createElement("a");
-			btn.classList.add('btn', 'btn-success');
-			btn.innerHTML = "Ajouter au panier";
-			col2.appendChild(btn);
+			//const  btn = document.createElement("a");
+			//btn.classList.add('btn', 'btn-success');
+			//btn.innerHTML = "Ajouter au panier";
+			//col2.appendChild(btn);
 			col.appendChild(p_lead);
 			row.appendChild(col);
 			row.appendChild(col2);

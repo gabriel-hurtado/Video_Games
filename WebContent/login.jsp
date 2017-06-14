@@ -38,7 +38,7 @@
             <h4>Hey there</h4>
             <input type="text" id="userName" class="form-control input-sm chat-input" placeholder="username" />
             </br>
-            <input type="text" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
+            <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
             </br>
             <div class="wrapper">
             <span class="group-btn" id = "loginButton" onclick="login()">
