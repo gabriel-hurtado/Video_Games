@@ -123,9 +123,9 @@ public class TabActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "GAMES";
                 case 1:
-                    return "SECTION 2";
+                    return "PROFILE";
 
             }
             return null;
