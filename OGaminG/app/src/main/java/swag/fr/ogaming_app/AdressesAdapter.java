@@ -13,9 +13,10 @@ import java.util.List;
 /**
  * Created by Hornet on 30/05/2017.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class AdressesAdapter extends RecyclerView.Adapter<AdressesAdapter.MyViewHolder> {
     private  static List<Address> adress;
-    Context ct;
+    private final Context ct;
     public AdressesAdapter(Context t) {
         adress = new ArrayList<>();
         ct=t;
@@ -46,7 +47,7 @@ public class AdressesAdapter extends RecyclerView.Adapter<AdressesAdapter.MyView
     }
 
     public void setData(ArrayList<Address> data) {
-        this.adress = data;
+        adress = data;
     }
 
 

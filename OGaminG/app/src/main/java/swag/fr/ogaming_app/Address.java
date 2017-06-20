@@ -4,7 +4,8 @@ package swag.fr.ogaming_app;
  * Created by Hornet on 08/06/2017.
  */
 
-public class Address {
+@SuppressWarnings("DefaultFileTemplate")
+class Address {
 
 
     private String address_line;

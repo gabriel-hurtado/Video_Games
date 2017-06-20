@@ -1,12 +1,12 @@
 package swag.fr.ogaming_app;
 
-import java.io.Console;
 import java.util.List;
 
 /**
  * Created by Hornet on 30/05/2017.
  */
-public class Game {
+@SuppressWarnings("DefaultFileTemplate")
+class Game {
     private int id;
     private String title;
     private String picture;

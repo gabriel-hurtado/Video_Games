@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="UnusedResources">
+        <ignore path="src/main/res/drawable-hdpi/knights_1920x1200.png" />
+        <ignore path="src/main/res/drawable-mdpi/knights_1920x1200.png" />
+        <ignore path="src/main/res/drawable-xhdpi/knights_1920x1200.png" />
+        <ignore path="src/main/res/drawable-xxhdpi/knights_1920x1200.png" />
+        <ignore path="src/main/res/drawable-xxxhdpi/knights_1920x1200.png" />
+    </issue>
+</lint>
