@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,31 +23,24 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Hornet on 06/06/2017.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class ProfileFragment extends Fragment {
-    TextView name;
-    TextView desc;
-    ImageView back;
-    private RecyclerView mRecyclerView;
+    private TextView name;
+    private TextView desc;
+    private ImageView back;
     private AdressesAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    ImageView profile;
+    private ImageView profile;
 
     public ProfileFragment(){
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
 
 
     @Override
@@ -61,11 +53,11 @@ public class ProfileFragment extends Fragment {
 
 
         mAdapter=new AdressesAdapter(getContext());
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.AddressList);
+        RecyclerView mRecyclerView = (RecyclerView) v.findViewById(R.id.AddressList);
         mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mRecyclerView.setAdapter(mAdapter);
@@ -88,17 +80,15 @@ public class ProfileFragment extends Fragment {
         client.post(urlWithParam, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                boolean success = false;
-                JSONObject json = null;
 
-                String response = null;
+                JSONObject json;
+
+                String response ;
                 try {
                     response = new String(responseBody, "UTF-8");
                     json = new JSONObject(response);
                     upateView(json);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedEncodingException e) {
+                } catch (JSONException | UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
 

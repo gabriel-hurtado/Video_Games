@@ -20,9 +20,10 @@ import java.util.List;
 /**
  * Created by Hornet on 30/05/2017.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder> {
     private  static List<Game> games;
-    Context ct;
+    private final Context ct;
     public GamesAdapter(Context t) {
         games = new ArrayList<>();
         ct=t;
@@ -72,7 +73,7 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder
 
     public void setData(JSONArray data) {
 
-        this.games =new ArrayList<>();
+        games =new ArrayList<>();
         if (data != null) {
             for (int i=0;i<data.length();i++){
                 //int id,String title,String picture,Double price,List<Consoles> v,List<Gametype> g
@@ -90,7 +91,7 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder
                     for (int j=0;j<g.length();j++){
                         gam.add(new Gametype(g.getJSONObject(j).getString("name") ));
                     }
-                    this.games.add(new Game(itm.getInt("id"),itm.getString("title"),itm.getString("picture"),itm.getDouble("price"),consoles,gam));
+                    games.add(new Game(itm.getInt("id"),itm.getString("title"),itm.getString("picture"),itm.getDouble("price"),consoles,gam));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
