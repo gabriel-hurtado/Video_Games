@@ -112,6 +112,33 @@
 		request.send(params);
 	};
 
+	const colorchange = id => {
+		console.log("called" + id);
+		let btn = document.getElementById(id);
+		console.log(btn);
+		console.log(btn.classList);
+		if ( btn.classList.contains("btn-success") ) {
+			console.log("ok");
+			btn.classList.remove("btn-success");
+			btn.classList.add("btn-warning");
+			btn.innerHTML = "Retirer du panier";
+			
+		} else if ( btn.classList.contains("btn-warning") ) {
+			console.log("okay2");
+			btn.classList.remove("btn-warning");
+			btn.classList.add("btn-success");
+			btn.innerHTML = "Ajouter au panier";
+		}
+	}
+
+	const toggleButtons = buttonsId => {
+		console.log("buttonsId", buttonsId);
+		buttonsId.forEach(id => {
+			console.log("id",id);
+			colorchange(id);
+		});
+	}
+
 	// modifying video games info in DOM
 	const parseDataVideoGames = data => {
 		console.log(data);
@@ -156,10 +183,28 @@
 			p_lead.innerHTML = "$" + parseFloat(video.price);
 			const col2 = document.createElement("div");
 			col2.classList.add('col-xs-12', 'col-md-6');
-			//const  btn = document.createElement("a");
-			//btn.classList.add('btn', 'btn-success');
-			//btn.innerHTML = "Ajouter au panier";
-			//nippecol2.appendChild(btn);
+			const  btn = document.createElement("a");
+			btn.classList.add('btn', 'btn-success');
+			btn.innerHTML = "Ajouter au panier";
+			btn.id = video.id;
+			btn.addEventListener('click', function() {
+				if ( btn.classList.contains("btn-success") ) {
+					let panier = JSON.parse(sessionStorage.getItem("panier"));
+					console.log("panier ", panier)
+					panier.push(video.id);
+					sessionStorage.setItem("panier",JSON.stringify(panier));
+				} else if ( btn.classList.contains("btn-warning") ) {
+					let panier = JSON.parse(sessionStorage.getItem("panier"))
+					var index = panier.indexOf(video.id);
+					if (index > -1) {
+					    panier.splice(index, 1);
+					}
+					console.log("panier ", panier);
+					sessionStorage.setItem("panier",JSON.stringify(panier));
+				}
+				colorchange(video.id);
+			}, false);
+			col2.appendChild(btn);
 			col.appendChild(p_lead);
 			row.appendChild(col);
 			row.appendChild(col2);
@@ -170,7 +215,13 @@
 			thumbnail.appendChild(caption);
 			item.appendChild(thumbnail);
 			document.getElementById("products").appendChild(item);
-		});	            
+		});
+
+		if (JSON.parse(sessionStorage.getItem('panier'))) {
+			toggleButtons(JSON.parse(sessionStorage.getItem('panier')));
+		} else {
+			sessionStorage.setItem('panier', JSON.stringify([]));
+		}            
 	};
 
 	// modifying client info in DOM
@@ -202,6 +253,7 @@
 		if (sessionStorage.getItem('userId')) {
 			getUserInformation(sessionStorage.getItem('userId'));
 			getVideoGamesGallery();
+			
 		} else {
 			window.location.replace("./login.jsp");
 		}
